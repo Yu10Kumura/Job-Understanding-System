@@ -1,0 +1,10 @@
+{
+  "モデル": "gpt-4o",
+  "自信度閾値": 0.65,
+  "Web検索結果数": 5,
+  "SerpAPI設定": "有効",
+  "MAX_TOKENS_LAYER2": 3000,
+  "MAX_TOKENS_LAYER3": 3500,
+  "TECH_DEFAULT_COUNT": 10,
+  "PROMPT_FIELD_MAX_CHARS": 800
+}
