@@ -133,7 +133,7 @@ def layer3_optimize_for_learning(comparison_final: Dict[str, Any]) -> Dict[str, 
         # LLM呼び出し
         response_text = call_openai_with_retry(
             prompt=prompt,
-            temperature=Config.TEMP_LAYER3,
+            temperature=1,
             max_completion_tokens=Config.MAX_TOKENS_LAYER3
         )
         

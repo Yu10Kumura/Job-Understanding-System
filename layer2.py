@@ -324,7 +324,7 @@ def _step3_web_integration(
     # LLM呼び出し
     response_text = call_openai_with_retry(
         prompt=prompt,
-        temperature=0.3,  # より低めで事実重視
+        temperature=1, 
         max_completion_tokens=Config.MAX_TOKENS_LAYER2 + 500
     )
     
