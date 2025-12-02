@@ -273,6 +273,11 @@ def _step1_llm_only_comparison(
     logger.info(f"プロンプトの先頭500文字: {prompt[:500]}")
     # ========== 追加箇所（ここまで） ==========
 
+    # ========== プロンプト全体をログに記録（追加） ==========
+    logger.debug(f"プロンプト全体: {prompt}")  # DEBUGレベルで記録
+    # ========================================================
+
+
     # LLM呼び出し
     response_text = call_openai_with_retry(
         prompt=prompt,

@@ -121,6 +121,16 @@ def call_openai_with_retry(
                 logger.warning("gpt-4oモデルを使用中: 特定のパラメータに注意してください")
             
             result = response.choices[0].message.content
+            # ========== 挿入箇所（ここから） ==========
+            # 応答がNoneまたは空文字列の場合の処理
+            if result is None:
+                logger.warning("応答内容が None です。空文字列に変換します。")
+                result = ""
+            elif not result.strip():
+                logger.warning("応答内容が空文字列です。")
+            # ========== 挿入箇所（ここまで） ==========
+
+
             # トークン使用量が返ってくる場合はログに出力
             try:
                 usage = response.usage if hasattr(response, 'usage') else response.get('usage', None)
