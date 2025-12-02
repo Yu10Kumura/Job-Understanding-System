@@ -116,19 +116,35 @@ def call_openai_with_retry(
                 max_completion_tokens=max_completion_tokens
             )
             
-            # gpt-4o特有のエラーハンドリング（例: モデル非対応のパラメータ）
-            if "gpt-4o" in Config.OPENAI_MODEL:
-                logger.warning("gpt-4oモデルを使用中: 特定のパラメータに注意してください")
+            # ========== 修正箇所（ここから） ==========
+            # レスポンスの詳細をログに記録
+            logger.debug(f"API レスポンス全体: {response}")
             
+            # content を取得
             result = response.choices[0].message.content
-            # ========== 挿入箇所（ここから） ==========
-            # 応答がNoneまたは空文字列の場合の処理
+            
+            # content が None または空の場合の詳細なログ
             if result is None:
-                logger.warning("応答内容が None です。空文字列に変換します。")
-                result = ""
+                logger.error("応答内容が None です")
+                logger.error(f"finish_reason: {response.choices[0].finish_reason}")
+                logger.error(f"message 全体: {response.choices[0].message}")
+                
+                # finish_reason をチェック
+                finish_reason = response.choices[0].finish_reason
+                if finish_reason == "length":
+                    raise Exception(
+                        f"トークン制限に達しました。max_completion_tokens={max_completion_tokens} を増やしてください。"
+                    )
+                elif finish_reason == "content_filter":
+                    raise Exception("コンテンツフィルターにより応答がブロックされました。")
+                else:
+                    raise Exception(f"応答が空です。finish_reason: {finish_reason}")
+            
             elif not result.strip():
                 logger.warning("応答内容が空文字列です。")
-            # ========== 挿入箇所（ここまで） ==========
+                logger.error(f"finish_reason: {response.choices[0].finish_reason}")
+            # ========== 修正箇所（ここまで） ==========
+            
 
 
             # トークン使用量が返ってくる場合はログに出力
