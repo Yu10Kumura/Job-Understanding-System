@@ -82,7 +82,7 @@ def layer1_extract_structure(job_text: str) -> Dict[str, Any]:
         # LLM呼び出し
         response_text = call_openai_with_retry(
             prompt=prompt,
-            temperature=Config.TEMP_LAYER1,
+            temperature=1,  # 修正: モデルがサポートするデフォルト値に変更
             max_completion_tokens=Config.MAX_TOKENS_LAYER1
         )
         
