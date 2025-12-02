@@ -271,7 +271,7 @@ def _step1_llm_only_comparison(
     # LLM呼び出し
     response_text = call_openai_with_retry(
         prompt=prompt,
-        temperature=Config.TEMP_LAYER2,
+        temperature=1,  # 修正: モデルがサポートするデフォルト値に変更
         max_completion_tokens=Config.MAX_TOKENS_LAYER2
     )
     
