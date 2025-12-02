@@ -71,7 +71,7 @@ def save_config_snapshot(version: str = "v2.0") -> None:
 def call_openai_with_retry(
     prompt: str,
     temperature: float,
-    max_tokens: int,
+    max_completion_tokens: int,
     max_retries: int = None
 ) -> str:
     """
@@ -80,7 +80,7 @@ def call_openai_with_retry(
     Args:
         prompt: プロンプト
         temperature: temperature値
-        max_tokens: 最大トークン数
+        max_completion_tokens: 最大トークン数
         max_retries: 最大リトライ回数
         
     Returns:
