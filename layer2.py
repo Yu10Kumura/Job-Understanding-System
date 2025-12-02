@@ -4,14 +4,31 @@
 """
 import json
 from typing import Dict, Any
+# ========== 修正箇所（ここから） ==========
+# 1. まず config をインポート
 from config import Config
+
+# 2. 次に utils をインポート
 from utils import (
     call_openai_with_retry,
     parse_json_with_retry,
     validate_comparison_data,
     logger
 )
-from serpapi_utils import execute_dual_search
+
+# 3. 最後に serpapi_utils をインポート（条件付き）
+try:
+    from serpapi_utils import execute_dual_search
+    SERPAPI_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"serpapi_utils のインポートに失敗しました: {str(e)}")
+    logger.warning("Web検索機能は無効化されます")
+    SERPAPI_AVAILABLE = False
+    
+    # ダミー関数を定義
+    def execute_dual_search(job_category: str) -> str:
+        return "Web検索は無効化されています。"
+# ========== 修正箇所（ここまで） ==========
 
 
 def _build_step1_prompt(structured_data: Dict[str, Any], job_category: str) -> str:
