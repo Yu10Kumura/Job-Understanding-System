@@ -83,7 +83,7 @@ def layer1_extract_structure(job_text: str) -> Dict[str, Any]:
         response_text = call_openai_with_retry(
             prompt=prompt,
             temperature=Config.TEMP_LAYER1,
-            max_tokens=Config.MAX_TOKENS_LAYER1
+            max_completion_tokens=Config.MAX_TOKENS_LAYER1
         )
         
         # JSON解析

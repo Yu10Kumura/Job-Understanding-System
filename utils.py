@@ -113,7 +113,7 @@ def call_openai_with_retry(
                     {"role": "user", "content": prompt}
                 ],
                 temperature=temperature,
-                max_tokens=max_tokens
+                max_completion_tokens=max_completion_tokens
             )
             
             # gpt-4o特有のエラーハンドリング（例: モデル非対応のパラメータ）
@@ -189,7 +189,7 @@ def call_openai_with_retry(
 def call_openai_flex(
     prompt: str,
     temperature: float,
-    max_tokens: int,
+    max_completion_tokens: int,
     system_message: str,
     max_retries: int = None,
 ) -> str:
@@ -212,7 +212,7 @@ def call_openai_flex(
                     {"role": "user", "content": prompt}
                 ],
                 temperature=temperature,
-                max_tokens=max_tokens
+                max_completion_tokens=max_completion_tokens
             )
 
             result = response.choices[0].message.content
@@ -754,7 +754,7 @@ def answer_question(structured_data: Dict[str, Any], question: str, history: Opt
         reply = call_openai_flex(
             prompt=user_prompt,
             temperature=0.0,
-            max_tokens=1500,
+            max_completion_tokens=1500,
             system_message=qa_system
         )
         answer = reply.strip()

@@ -134,7 +134,7 @@ def layer3_optimize_for_learning(comparison_final: Dict[str, Any]) -> Dict[str, 
         response_text = call_openai_with_retry(
             prompt=prompt,
             temperature=Config.TEMP_LAYER3,
-            max_tokens=Config.MAX_TOKENS_LAYER3
+            max_completion_tokens=Config.MAX_TOKENS_LAYER3
         )
         
         # JSON解析
@@ -273,7 +273,7 @@ def _specialize_usage_tech(final_output: Dict[str, Any]) -> Dict[str, Any]:
 {json.dumps(current_b, ensure_ascii=False)}
 """
 
-        resp = call_openai_with_retry(prompt=prompt, temperature=0.2, max_tokens=800)
+        resp = call_openai_with_retry(prompt=prompt, temperature=0.2, max_completion_tokens=800)
         try:
             tech_json = parse_json_with_retry(resp)
         except Exception:

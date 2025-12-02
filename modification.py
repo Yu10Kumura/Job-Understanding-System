@@ -141,7 +141,7 @@ def handle_modification_request(
         response_text = call_openai_with_retry(
             prompt=prompt,
             temperature=0.2,  # 変換指示は低めで安定化
-            max_tokens=Config.MAX_TOKENS_MODIFICATION
+            max_completion_tokens=Config.MAX_TOKENS_MODIFICATION
         )
         
         # JSON解析

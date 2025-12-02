@@ -272,7 +272,7 @@ def _step1_llm_only_comparison(
     response_text = call_openai_with_retry(
         prompt=prompt,
         temperature=Config.TEMP_LAYER2,
-        max_tokens=Config.MAX_TOKENS_LAYER2
+        max_completion_tokens=Config.MAX_TOKENS_LAYER2
     )
     
     # JSON解析
@@ -309,7 +309,7 @@ def _step3_web_integration(
     response_text = call_openai_with_retry(
         prompt=prompt,
         temperature=0.3,  # より低めで事実重視
-        max_tokens=Config.MAX_TOKENS_LAYER2 + 500
+        max_completion_tokens=Config.MAX_TOKENS_LAYER2 + 500
     )
     
     # JSON解析
