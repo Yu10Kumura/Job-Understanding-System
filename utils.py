@@ -334,7 +334,7 @@ def parse_json_with_retry(response_text: str, max_retries: int = 3) -> Dict[str,
                 continue
             else:
                 logger.error(f"JSON解析に失敗しました: {str(e)}")
-                logger.error(f"応答の先頭200文字: {original_text[:200]}...")
+                logger.error(f"応答内容: {response_text}")  # 応答内容をログに記録
                 # 最後の手段: 応答中の最初の'{'から対応する閉じ括弧までを抽出して再試行
                 try:
                     text = original_text
