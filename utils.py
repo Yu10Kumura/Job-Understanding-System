@@ -315,6 +315,20 @@ def parse_json_with_retry(response_text: str, max_retries: int = 3) -> Dict[str,
             return result
             
         except json.JSONDecodeError as e:
+            # ========== 追加箇所（ここから） ==========
+            # Extra dataエラーの場合、最初のJSONオブジェクトのみを抽出
+            if "Extra data" in str(e):
+                try:
+                    # JSONデコーダを使用して最初のオブジェクトを抽出
+                    decoder = json.JSONDecoder()
+                    result, idx = decoder.raw_decode(response_text)
+                    result = _convert_table_to_table_data(result)
+                    logger.info(f"JSON解析成功（最初のオブジェクトのみ抽出、位置: {idx}）")
+                    return result
+                except Exception as extract_error:
+                    logger.warning(f"最初のJSONオブジェクト抽出に失敗: {str(extract_error)}")
+            # ========== 追加箇所（ここまで） ==========
+  
             if attempt < max_retries - 1:
                 # マークダウンコードブロック除去を試みる
                 cleaned = response_text.strip()
