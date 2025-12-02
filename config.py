@@ -68,9 +68,9 @@ class Config:
     TEMP_LAYER3 = 0.0  # レイヤー③: 教育最適化
     
     # ==================== トークン制限 ====================
-    MAX_TOKENS_LAYER1 = 2000
-    MAX_TOKENS_LAYER2 = 2500  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
-    MAX_TOKENS_LAYER3 = 3500  # Layer③: 表データ生成
+    MAX_TOKENS_LAYER1 = 5000
+    MAX_TOKENS_LAYER2 = 5000  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
+    MAX_TOKENS_LAYER3 = 5000  # Layer③: 表データ生成
     MAX_TOKENS_MODIFICATION = 3500
 
     # ==================== QAメモリ設定 ====================

@@ -268,6 +268,11 @@ def _step1_llm_only_comparison(
     # プロンプト構築
     prompt = _build_step1_prompt(structured_data, job_category)
     
+    # ========== 追加箇所（ここから） ==========
+    logger.info(f"プロンプト長: {len(prompt)} 文字")
+    logger.info(f"プロンプトの先頭500文字: {prompt[:500]}")
+    # ========== 追加箇所（ここまで） ==========
+
     # LLM呼び出し
     response_text = call_openai_with_retry(
         prompt=prompt,
