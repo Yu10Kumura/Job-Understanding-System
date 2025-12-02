@@ -27,7 +27,7 @@ class Config:
     """システム全体の設定を管理するクラス"""
     
     # ==================== LLM設定 ====================
-    OPENAI_MODEL = "gpt-4o"
+    OPENAI_MODEL = "gpt-5-mini"
     
     # Streamlit Cloud対応: st.secretsから読み込み、なければ環境変数
     if _USE_STREAMLIT_SECRETS:
@@ -57,9 +57,9 @@ class Config:
     MAX_SEARCH_RESULTS = 5
     
     # 検索結果から抽出する最大文字数
-    WEB_CONTEXT_MAX_CHARS = 800
+    WEB_CONTEXT_MAX_CHARS = 3000
     # プロンプトに含める各フィールドの最大文字数（超過分は切り詰める）
-    PROMPT_FIELD_MAX_CHARS = 800
+    PROMPT_FIELD_MAX_CHARS = 3000
     
     # ==================== Temperature設定 ====================
     # 安定性のため、出力の揺らぎを抑える（temperature=0）
