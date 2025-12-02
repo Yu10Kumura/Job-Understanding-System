@@ -143,6 +143,15 @@ def call_openai_with_retry(
             elif not result.strip():
                 logger.warning("応答内容が空文字列です。")
                 logger.error(f"finish_reason: {response.choices[0].finish_reason}")
+                # ========== 追加箇所（ここから） ==========
+                # 空文字列の場合も finish_reason をチェック
+                finish_reason = response.choices[0].finish_reason
+                if finish_reason == "length":
+                    raise Exception(
+                        f"トークン制限に達しました。max_completion_tokens={max_completion_tokens} を増やしてください。"
+                )
+            # ========== 追加箇所（ここまで） ==========            
+            
             # ========== 修正箇所（ここまで） ==========
             
 
