@@ -63,13 +63,13 @@ class Config:
     
     # ==================== Temperature設定 ====================
     # 安定性のため、出力の揺らぎを抑える（temperature=0）
-    TEMP_LAYER1 = 0.0  # レイヤー①: 構造化
-    TEMP_LAYER2 = 0.0  # レイヤー②: 比較
-    TEMP_LAYER3 = 0.0  # レイヤー③: 教育最適化
+    TEMP_LAYER1 = 1  # レイヤー①: 構造化
+    TEMP_LAYER2 = 1  # レイヤー②: 比較
+    TEMP_LAYER3 = 1  # レイヤー③: 教育最適化
     
     # ==================== トークン制限 ====================
     MAX_TOKENS_LAYER1 = 5000
-    MAX_TOKENS_LAYER2 = 5000  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
+    MAX_TOKENS_LAYER2 = 8000  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
     MAX_TOKENS_LAYER3 = 8000  # Layer③: 表データ生成
     MAX_TOKENS_MODIFICATION = 3500
 

@@ -570,8 +570,8 @@ def validate_final_output(data: Dict[str, Any]) -> bool:
         raise ValueError("explanationsが欠落しています")
     
     required_items = [
-        "求人票名", "役割", "業務プロセス", 
-        "対象製品", "ステークホルダー", "使用技術"
+        "求人票名", "採用背景","役割", "業務プロセス", 
+        "対象製品", "ステークホルダー", "使用技術", "バリューチェーン"
     ]
     
     for item in required_items:
