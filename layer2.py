@@ -224,6 +224,9 @@ def _build_step1_prompt(structured_data: Dict[str, Any], job_category: str) -> s
 必ず上記のJSON形式のみで応答してください。
 他の文章、説明、マークダウン記法は一切含めないでください。
 JSONオブジェクトをそのまま出力してください。
+
+⭐⭐⭐ 重要: content_bオブジェクトには必ず8項目すべてを含めてください ⭐⭐⭐
+⭐⭐⭐ 重要: gap_analysisオブジェクトにも必ず8項目すべてを含めてください ⭐⭐⭐
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
     return prompt
