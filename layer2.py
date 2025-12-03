@@ -299,7 +299,7 @@ def _step1_llm_only_comparison(
     response_text = call_openai_with_retry(
         prompt=prompt,
         temperature=1,  # 修正: モデルがサポートするデフォルト値に変更
-        max_completion_tokens=Config.MAX_TOKENS_LAYER2　+ 3000
+        max_completion_tokens=Config.MAX_TOKENS_LAYER2 + 3000
     )
 
     # ========== 追加箇所（ここから） ==========
@@ -391,7 +391,7 @@ def layer2_build_comparison_smart(
         
         # 条件1: 特定項目の不確実性チェック
         priority_items = ["対象製品", "使用技術", "業務プロセス"]
-        uncertain_priority_items = [item for item in uncertain_aspects 
+        uncertain_priority_items = [item for item in uncertain_aspects
                                      if any(p in item for p in priority_items)]
         
         if uncertain_priority_items:
