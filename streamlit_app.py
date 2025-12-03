@@ -20,7 +20,7 @@ from modification import handle_modification_request
 
 # ==================== ページ設定 ====================
 st.set_page_config(
-    page_title="採用リクルーター教育支援システム",
+    page_title="採用リクルーター事前ジョブ理解支援システム",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="collapsed"
