@@ -106,7 +106,7 @@ def call_openai_with_retry(
                 '{"求人票名":"...","役割":"...","業務プロセス":"...","対象製品":"...","ステークホルダー":"...","使用技術":"..."}'
             )
 
-           response = client.chat.completions.create(
+            response = client.chat.completions.create(
                 model=Config.OPENAI_MODEL,
                 messages=[
                     {"role": "system", "content": system_msg},
