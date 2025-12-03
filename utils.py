@@ -106,7 +106,7 @@ def call_openai_with_retry(
                 '{"求人票名":"...","役割":"...","業務プロセス":"...","対象製品":"...","ステークホルダー":"...","使用技術":"..."}'
             )
 
-            response = client.chat.completions.create(
+           response = client.chat.completions.create(
                 model=Config.OPENAI_MODEL,
                 messages=[
                     {"role": "system", "content": system_msg},
@@ -116,9 +116,11 @@ def call_openai_with_retry(
                 max_completion_tokens=max_completion_tokens
             )
             
-            # ========== 修正箇所（ここから） ==========
             # レスポンスの詳細をログに記録
             logger.debug(f"API レスポンス全体: {response}")
+            
+            # ⭐ 追加: finish_reason を先に取得
+            finish_reason = response.choices[0].finish_reason
             
             # content を取得
             result = response.choices[0].message.content
@@ -126,11 +128,10 @@ def call_openai_with_retry(
             # content が None または空の場合の詳細なログ
             if result is None:
                 logger.error("応答内容が None です")
-                logger.error(f"finish_reason: {response.choices[0].finish_reason}")
+                logger.error(f"finish_reason: {finish_reason}")  # ⭐ 修正: response.choices[0].finish_reason → finish_reason
                 logger.error(f"message 全体: {response.choices[0].message}")
                 
                 # finish_reason をチェック
-                finish_reason = response.choices[0].finish_reason
                 if finish_reason == "length":
                     raise Exception(
                         f"トークン制限に達しました。max_completion_tokens={max_completion_tokens} を増やしてください。"
@@ -142,18 +143,20 @@ def call_openai_with_retry(
             
             elif not result.strip():
                 logger.warning("応答内容が空文字列です。")
-                logger.error(f"finish_reason: {response.choices[0].finish_reason}")
-                # ========== 追加箇所（ここから） ==========
+                logger.error(f"finish_reason: {finish_reason}")  # ⭐ 修正: response.choices[0].finish_reason → finish_reason
                 # 空文字列の場合も finish_reason をチェック
-                finish_reason = response.choices[0].finish_reason
                 if finish_reason == "length":
                     raise Exception(
                         f"トークン制限に達しました。max_completion_tokens={max_completion_tokens} を増やしてください。"
+                    )
+            
+            # ⭐⭐ 追加: finish_reason が "length" の場合、応答が完全でない可能性があるため警告
+            if finish_reason == "length":
+                logger.warning(
+                    f"⚠️ トークン制限に達しました (max_completion_tokens={max_completion_tokens})。"
+                    f"応答が不完全な可能性があります。応答文字数: {len(result)}"
                 )
-            # ========== 追加箇所（ここまで） ==========            
-            
-            # ========== 修正箇所（ここまで） ==========
-            
+            # ⭐⭐ 追加ここまで
 
 
             # トークン使用量が返ってくる場合はログに出力
@@ -177,7 +180,8 @@ def call_openai_with_retry(
                         'prompt_len': len(prompt),
                         'prompt_tokens': p_t,
                         'completion_tokens': c_t,
-                        'total_tokens': t_t
+                        'total_tokens': t_t,
+                        'finish_reason': finish_reason  # ⭐⭐ 追加: finish_reasonを記録
                     }
                 except Exception:
                     d = None

@@ -299,7 +299,7 @@ def _step1_llm_only_comparison(
     response_text = call_openai_with_retry(
         prompt=prompt,
         temperature=1,  # 修正: モデルがサポートするデフォルト値に変更
-        max_completion_tokens=Config.MAX_TOKENS_LAYER2
+        max_completion_tokens=Config.MAX_TOKENS_LAYER2　+ 3000
     )
 
     # ========== 追加箇所（ここから） ==========
@@ -342,7 +342,7 @@ def _step3_web_integration(
     response_text = call_openai_with_retry(
         prompt=prompt,
         temperature=1, 
-        max_completion_tokens=Config.MAX_TOKENS_LAYER2 + 500
+        max_completion_tokens=Config.MAX_TOKENS_LAYER2 + 1500
     )
     
     # JSON解析
