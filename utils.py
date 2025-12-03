@@ -546,18 +546,18 @@ def validate_final_output(data: Dict[str, Any]) -> bool:
     
     table_data = data["table_data"]
     
-    # 7行未満の場合は自動補完（ヘッダー＋6項目）
-    if len(table_data) < 7:
+    # 9行未満の場合は自動補完（ヘッダー＋8項目）
+    if len(table_data) < 9:
         logger.warning(f"table_dataが{len(table_data)}行しかありません。不足分を空行で補完します。")
         header = table_data[0] if table_data else ["", "", "", ""]
         # 空行テンプレート（列数はヘッダーに合わせる）
         empty_row = ["" for _ in range(len(header))]
-        while len(table_data) < 7:
+        while len(table_data) < 9:
             table_data.append(empty_row.copy())
         data["table_data"] = table_data
-    elif len(table_data) > 7:
+    elif len(table_data) > 9:
         raise ValueError(
-            f"table_dataは7行である必要があります（現在: {len(table_data)}行）"
+            f"table_dataは9行である必要があります（現在: {len(table_data)}行）"
         )
     
     if len(table_data[0]) != 4:  # 4列
@@ -606,7 +606,7 @@ def normalize_table_data_structure(final_output: Dict[str, Any]) -> Dict[str, An
     final_output の `table_data` を期待されるフォーマットに正規化します。
 
     - ヘッダーを固定（["項目名","内容A（求人票の記述）","内容B（実態推察）","ギャップ"]）
-    - 行は期待順序の6項目（求人票名、役割、業務プロセス、対象製品、ステークホルダー、使用技術）で並べ替え／補完
+    - 行は期待順序の8項目（求人票名、採用背景、役割、業務プロセス、対象製品、ステークホルダー、使用技術、バリューチェーン）で並べ替え／補完
     - 各行の列数を4に揃える（超過分は最後の列に結合、欠損は空文字で補完）
     - 可能な限り既存のセル内容は保持する
 
@@ -616,8 +616,8 @@ def normalize_table_data_structure(final_output: Dict[str, Any]) -> Dict[str, An
     final_output = _convert_table_to_table_data(final_output)
     
     expected_items = [
-        "求人票名", "役割", "業務プロセス",
-        "対象製品", "ステークホルダー", "使用技術"
+        "求人票名", "採用背景", "役割", "業務プロセス",
+        "対象製品", "ステークホルダー", "使用技術", "バリューチェーン"
     ]
     canonical_header = [
         "項目名", "内容A（求人票の記述）", "内容B（実態推察）", "ギャップ"
