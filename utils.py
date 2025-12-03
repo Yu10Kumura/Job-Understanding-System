@@ -447,8 +447,8 @@ def validate_structured_data(data: Dict[str, Any]) -> bool:
         ValueError: バリデーション失敗時
     """
     required_keys = [
-        "求人票名", "役割", "業務プロセス", 
-        "対象製品", "ステークホルダー", "使用技術"
+        "求人票名", "採用背景", "役割", "業務プロセス", 
+        "対象製品", "ステークホルダー", "使用技術", "バリューチェーン"
     ]
     
     for key in required_keys:
