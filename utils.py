@@ -806,7 +806,7 @@ def answer_question(structured_data: Dict[str, Any], question: str, history: Opt
     try:
         reply = call_openai_flex(
             prompt=user_prompt,
-            temperature=0.0,
+            temperature=1,
             max_completion_tokens=1500,
             system_message=qa_system
         )
