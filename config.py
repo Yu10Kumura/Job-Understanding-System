@@ -69,8 +69,8 @@ class Config:
     
     # ==================== トークン制限 ====================
     MAX_TOKENS_LAYER1 = 5000
-    MAX_TOKENS_LAYER2 = 8000  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
-    MAX_TOKENS_LAYER3 = 8000  # Layer③: 表データ生成
+    MAX_TOKENS_LAYER2 = 12000  # Layer②: プロンプトが長いため出力を抑制（8192制限対策）
+    MAX_TOKENS_LAYER3 = 12000  # Layer③: 表データ生成
     MAX_TOKENS_MODIFICATION = 3500
 
     # ==================== QAメモリ設定 ====================

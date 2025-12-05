@@ -322,6 +322,8 @@ if st.session_state.output:
                 file_name=f"求人分析_{job_category}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                 mime="text/csv",
                 use_container_width=True
+                key="download_csv"  # ✅ 追加
+
             )
     
     with col2:
@@ -336,6 +338,7 @@ if st.session_state.output:
                 file_name=f"求人分析_{job_category}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.tsv",
                 mime="text/tab-separated-values",
                 use_container_width=True
+                key="download_tsv"  # ✅ 追加
             )
     
     # ==================== 修正依頼エリア ====================
